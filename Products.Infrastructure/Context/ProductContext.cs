@@ -6,13 +6,12 @@ using System.Data;
 
 namespace Products.Infrastructure.Context
 {
-    public class ProductContext
+    public class ProductContext : EntityContext
     {
         private readonly IConfiguration _configuration;
 
-        public ProductContext(IConfiguration configuration)
+        public ProductContext(DbContextOptions<EntityContext> options) : base(options)
         {
-            _configuration = configuration;
         }
 
         public IDbConnection ProductConnection
@@ -21,6 +20,9 @@ namespace Products.Infrastructure.Context
             {
                 return new MySqlConnection(_configuration["ConnectionStrings:SqlConnectionString"]);
             }
-        }        
+        }
+
+        //Entities
+        public DbSet<Product> Products { get; set; }
     }
 }
