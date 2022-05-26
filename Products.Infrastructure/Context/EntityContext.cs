@@ -37,5 +37,8 @@ namespace Products.Infrastructure.Context
 
             return base.SaveChanges();
         }
+
+        public DbSet<Product> Products { get; set; }
+
     }
 }

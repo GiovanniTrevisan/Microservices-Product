@@ -1,6 +1,7 @@
 using AutoMapper;
-using Entities;
-using Products.API.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Products.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,14 @@ var mapperConfig = new MapperConfiguration(mc =>
 
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+
+builder.Services.AddDbContext<EntityContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Translate, (schema, table) => $"{ schema}_{ table}"));
+});
+
 
 builder.Services.AddMvc();
 var app = builder.Build();
@@ -35,5 +44,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var database = builder.Services.BuildServiceProvider()
+                               .GetService<EntityContext>().Database;
+
+database.EnsureCreated();
+
+database.Migrate();
 
 app.Run();

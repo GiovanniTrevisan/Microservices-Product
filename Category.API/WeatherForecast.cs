@@ -1,4 +1,4 @@
-namespace CategoriesAPI
+namespace Category.API
 {
     public class WeatherForecast
     {

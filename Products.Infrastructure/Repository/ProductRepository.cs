@@ -1,5 +1,4 @@
 ﻿using Entities;
-using Microsoft.EntityFrameworkCore;
 using Products.Infrastructure.Context;
 using Products.Infrastructure.Interfaces;
 using Products.Infrastructure.Utils;
@@ -9,9 +8,9 @@ namespace Products.Infrastructure.Repository
     public class ProductRepository : IProductRepository
     {
 
-        private readonly ProductContext _productContext;
+        private readonly EntityContext _productContext;
 
-        public ProductRepository(ProductContext productContext)
+        public ProductRepository(EntityContext productContext)
         {
             _productContext = productContext;
         }
@@ -31,12 +30,12 @@ namespace Products.Infrastructure.Repository
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return _productContext.Products.Single(product => product.IdProduct == id);
+            return _productContext.Products.Single(product => product.Id == id);
         }
 
         public async Task<Product> AddProductAsync(Product product)
         {
-            product.IdProduct = 0;
+            product.Id = 0;
             _productContext.Add(product);
             _productContext.SaveChanges();
 
@@ -55,7 +54,7 @@ namespace Products.Infrastructure.Repository
         {
             try
             {
-                var product = _productContext.Products.Single(product => product.IdProduct == id);
+                var product = _productContext.Products.Single(product => product.Id == id);
                 _productContext.Products.Remove(product);
                 _productContext.SaveChanges();
 
