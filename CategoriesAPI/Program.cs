@@ -1,3 +1,12 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Categories.API.Services.Interfaces;
+using Categories.API.Services;
+using Categories.Infrastructure.Context;
+using Categories.Infrastructure.Repository;
+using Categories.Infrastructure.Repository.Interface;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +15,24 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddDbContext<CategoryContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        o => o.SchemaBehavior(MySqlSchemaBehavior.Translate, (schema, table) => $"{ schema}_{ table}"));
+});
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryApiService, CategoryApiService>();
 
 var app = builder.Build();
 

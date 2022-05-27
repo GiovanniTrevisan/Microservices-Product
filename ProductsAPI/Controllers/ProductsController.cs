@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Products.API.Services.Interfaces;
 using Products.API.ViewModels;
-using ProductsAPI.Models;
 
 namespace ProductsAPI.Controllers
 {
@@ -24,6 +23,17 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
+        [Route("product")]
+        [SwaggerResponse(StatusCodes.Status200OK, typeof(ProductViewModel))]
+        public async Task<ActionResult> GetProducts([FromRoute] int limit = 0, int page = 0)
+        {
+            //Optional params for paginations
+            var products = await _productsApiService.GetAllProductsAsync(limit, page);
+
+            return Ok(products);
+        }
+
+        [HttpGet]
         [Route("product/{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, typeof(ProductViewModel))]
         public async Task<ActionResult> GetProduct([FromRoute] int id)
@@ -37,37 +47,26 @@ namespace ProductsAPI.Controllers
 
         }
 
-        [HttpGet]
-        [Route("product")]
-        [SwaggerResponse(StatusCodes.Status200OK, typeof(ProductViewModel))]
-        public async Task<ActionResult> GetProducts([FromRoute] int limit = 0, int page = 0)
-        {
-            //Optional params for paginations
-            var products = await _productsApiService.GetAllProductsAsync(limit, page);
-
-            return Ok(products);
-        }
-
         [HttpPost]
         [Route("product")]
         [SwaggerResponse(StatusCodes.Status200OK, typeof(ProductViewModel))]
         public async Task<ActionResult> AddProduct([FromBody] ProductViewModel productViewModel)
         {
-            var product = _mapper.Map<ProductViewModel, Product>(productViewModel);
+            Product product = _mapper.Map<ProductViewModel, Product>(productViewModel);
 
-            var savedProduct = await _productsApiService.AddProductAsync(product);
+            ProductViewModel savedProduct = await _productsApiService.AddProductAsync(product);
 
             return Ok(savedProduct);
         }
 
         [HttpPut]
-        [Route("product")]
+        [Route("product/{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, typeof(ProductViewModel))]
-        public async Task<ActionResult> AddOrUpdateProduct([FromBody] ProductViewModel productViewModel)
+        public async Task<ActionResult> AddOrUpdateProduct([FromRoute] int id, [FromBody] ProductViewModel productViewModel)
         {
-            var product = _mapper.Map<ProductViewModel, Product>(productViewModel);
+            Product product = _mapper.Map<ProductViewModel, Product>(productViewModel);
 
-            var savedProduct = await _productsApiService.AddOrUpdateProductAsync(product);
+            ProductViewModel savedProduct = await _productsApiService.AddOrUpdateProductAsync(product);
 
             return Ok(savedProduct);
         }

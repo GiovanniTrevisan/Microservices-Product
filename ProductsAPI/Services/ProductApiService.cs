@@ -2,7 +2,7 @@
 using Entities;
 using Products.API.Services.Interfaces;
 using Products.API.ViewModels;
-using Products.Infrastructure.Interfaces;
+using Products.Infrastructure.Repository.Interfaces;
 
 namespace Products.API.Services
 
@@ -23,34 +23,30 @@ namespace Products.API.Services
 
         public async Task<IEnumerable<ProductViewModel>> GetAllProductsAsync(int limit, int page)
         {
-            var products = (IEnumerable<ProductViewModel>)await _productRepository.GetAllAsync(limit, page);
+            var products = await _productRepository.GetAllAsync(limit, page);
 
-            return products;
+            IEnumerable<ProductViewModel> productsViews = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(products);
+
+            return productsViews;
         }
 
         public async Task<ProductViewModel> GetProductByIdAsync(int id)
         {
-            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(
-                await _productRepository.GetProductByIdAsync(id)
-                );
+            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(await _productRepository.GetProductByIdAsync(id));
 
             return savedProduct;
         }
 
         public async Task<ProductViewModel> AddProductAsync(Product product)
         {
-            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(
-                await _productRepository.AddProductAsync(product)
-                );
+            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(await _productRepository.AddProductAsync(product));
 
             return savedProduct;
         }
 
         public async Task<ProductViewModel> AddOrUpdateProductAsync(Product product)
         {
-            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(
-                await _productRepository.AddOrUpdateProductAsync(product)
-                );
+            ProductViewModel savedProduct = _mapper.Map<ProductViewModel>(await _productRepository.AddOrUpdateProductAsync(product));
 
             return savedProduct;
         }

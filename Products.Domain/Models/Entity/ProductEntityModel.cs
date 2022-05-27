@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Products.Domain.Models.Entity
 {
     public class ProductEntityModel
     {
-        public ProductEntityModel(int idProduct, string name, string description, bool outOfStock)
+        public ProductEntityModel(int id, string name, string description, bool outOfStock)
         {
-            IdProduct = idProduct;
+            Id = id;
             Name = name;
             Description = description;
             OutOfStock = outOfStock;
         }
 
         [Required(ErrorMessage = "Required ID")]
-        public int IdProduct { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
