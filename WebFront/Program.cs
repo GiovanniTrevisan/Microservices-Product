@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebFront.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<WebFrontContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("WebFrontContext") ?? throw new InvalidOperationException("Connection string 'WebFrontContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,6 +1,4 @@
-﻿using Entities;
-
-namespace WebFront.Models
+﻿namespace WebFront.Models
 {
     public class ProductViewModel
     {

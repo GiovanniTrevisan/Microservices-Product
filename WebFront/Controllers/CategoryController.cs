@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Formatting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WebFront.Data;
 using WebFront.Models;
 
 namespace WebFront.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly WebFrontContext _context;
         private readonly Uri baseAddress = new Uri("https://localhost:7264/");
         private readonly string callRequest = "api/Categories/category";
 
-        public CategoryController(WebFrontContext context)
+        public CategoryController()
         {
-            _context = context;
         }
 
         // GET: CategoryViewModels
@@ -74,8 +65,6 @@ namespace WebFront.Controllers
         }
 
         // POST: CategoryViewModels/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] CategoryViewModel categoryViewModel)
@@ -139,7 +128,7 @@ namespace WebFront.Controllers
                 readTask.Wait();
                 category = readTask.Result;
             }
-            return category == null ? NotFound() : View(category);
+            return category == null ? Problem("Some problem occurred. Cannot Edit this Category!") : RedirectToAction(nameof(Index));
         }
 
         // GET: CategoryViewModels/Delete/5
@@ -170,10 +159,10 @@ namespace WebFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            bool isDeleted = false;
+
             if (id == 0)
-            {
                 return NotFound();
-            }
 
             using (var categoryClient = new HttpClient())
             {
@@ -182,10 +171,10 @@ namespace WebFront.Controllers
                 responseTask.Wait();
 
                 var result = responseTask.Result;
-                var readTask = result.Content.ReadFromJsonAsync<CategoryViewModel>();
-                readTask.Wait();
+                var readTask = result.Content.ReadAsStringAsync().Result;
+                isDeleted = Convert.ToBoolean(readTask);
             }
-            return RedirectToAction(nameof(Index));
+            return isDeleted ? RedirectToAction(nameof(Index)) : Problem("Some problem occurred. Cannot Delete this value!"); 
         }
     }
 }
