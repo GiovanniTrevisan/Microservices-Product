@@ -8,13 +8,13 @@
 
 A CRUD project made in ASP.NET 6 testing microservices concepts, dependency injection, OOP and using C# Design Patterns.
 
-Project connects to a MySql database using the most up-to-date ORM Entity Framework.
+Project connects to a MySql database using Entity Framework Core 6.
 
 APIs developed and documented via Swagger.
 
 
 
-### Built With
+### Built With :computer:
 
 * [MySQL](https://www.mysql.com/)
 * [ASP.NET 6](https://docs.microsoft.com/aspnet/core/?view=aspnetcore-6.0)
@@ -25,7 +25,7 @@ APIs developed and documented via Swagger.
 
 
 <!-- GETTING STARTED -->
-## Setting up
+## Setting up :hammer_and_wrench:
 
 ### Prerequisites
 
@@ -51,12 +51,6 @@ APIs developed and documented via Swagger.
   ...
   ```
 
-
-
-<!-- CONTACT -->
-## Contact
-
-Project Link: [https://github.com/GiovanniTrevisan/Microservices-Product/](https://github.com/GiovanniTrevisan/Microservices-Product/)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
