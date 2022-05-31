@@ -1,8 +1,5 @@
 <div id="top"></div>
 
-![Forks][forks-shield]
-[![Stargazers][stars-shield]][stars-url]
-![MIT License][license-shield]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -64,16 +61,6 @@ Project Link: [https://github.com/GiovanniTrevisan/Microservices-Product/](https
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/GiovanniTrevisan/Microservices-Product.svg?style=for-the-badge
-[contributors-url]: https://github.com/GiovanniTrevisan/Microservices-Product/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/GiovanniTrevisan/Microservices-Product.svg?style=for-the-badge
-[stars-shield]: https://img.shields.io/github/stars/GiovanniTrevisan/Microservices-Product.svg?style=for-the-badge
-[stars-url]: https://github.com/GiovanniTrevisan/Microservices-Product/stargazers
-[issues-shield]: https://img.shields.io/github/issues/GiovanniTrevisan/Microservices-Product.svg?style=for-the-badge
-[issues-url]: https://github.com/GiovanniTrevisan/Microservices-Product/issues
-[license-shield]: https://img.shields.io/github/license/GiovanniTrevisan/Microservices-Product.svg?style=for-the-badge
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/giovanni-trevisan-ab609514a/
-[product-screenshot]: images/screenshot.png
+
