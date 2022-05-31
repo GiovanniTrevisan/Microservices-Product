@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-[![Forks][forks-shield]][forks-url]
+![Forks][forks-shield]
 [![Stargazers][stars-shield]][stars-url]
 ![MIT License][license-shield]
 [![LinkedIn][linkedin-shield]][linkedin-url]
