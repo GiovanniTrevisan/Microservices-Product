@@ -1,16 +1,9 @@
-<div id="top"></div>
-
-[![LinkedIn][linkedin-shield]][linkedin-url]
+# Microservices
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-A CRUD project made in ASP.NET 6 testing microservices concepts, dependency injection, OOP and using C# Design Patterns.
-
-Project connects to a MySql database using Entity Framework Core 6.
-
-APIs developed and documented via Swagger.
+A CRUD project made in **ASP.NET 6** testing **microservices** concepts, **dependency injection**, **OOP** and using **C# Design Patterns**.
+Project connects to a **MySql database** using **Entity Framework Core 6**.
+APIs developed and documented via **Swagger**.
 
 
 
@@ -51,10 +44,4 @@ APIs developed and documented via Swagger.
   ...
   ```
 
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/giovanni-trevisan-ab609514a/
 
