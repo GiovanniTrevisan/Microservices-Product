@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Products.Infrastructure.Utils
+namespace Infrastructure.Utils
 {
     public static class Utils
     {

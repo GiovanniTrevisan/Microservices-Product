@@ -1,10 +1,10 @@
 ﻿using Entities;
+using Infrastructure.Abstractions.Repositories;
+using Infrastructure.Context;
+using Infrastructure.Utils;
 using Microsoft.EntityFrameworkCore;
-using Products.Infrastructure.Context;
-using Products.Infrastructure.Repository.Interfaces;
-using Products.Infrastructure.Utils;
 
-namespace Products.Infrastructure.Repository
+namespace Infrastructure.Repository
 {
     public class ProductRepository : IProductRepository
     {
@@ -45,7 +45,7 @@ namespace Products.Infrastructure.Repository
 
         public async Task<Product> AddOrUpdateProductAsync(Product product)
         {
-            //_productContext.InsertOrUpdate(product);
+            _productContext.InsertOrUpdate(product);
             _productContext.SaveChanges();
 
             return product;

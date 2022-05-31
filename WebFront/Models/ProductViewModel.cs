@@ -10,6 +10,8 @@
 
         public bool OutOfStock { get; set; }
 
-        public CategoryViewModel Category { get; set; }
+        public int IdCategory { get; set; }
+
+        public CategoryViewModel? Category { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Categories.API.Services.Interfaces;
 using Categories.API.ViewModels;
-using Categories.Infrastructure.Repository;
-using Categories.Infrastructure.Repository.Interface;
 using Entities;
+using Infrastructure.Abstractions.Repositories;
+
 namespace Categories.API.Services
 
 {

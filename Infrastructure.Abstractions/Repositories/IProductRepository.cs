@@ -1,6 +1,6 @@
 ﻿using Entities;
 
-namespace Products.Infrastructure.Repository.Interfaces
+namespace Infrastructure.Abstractions.Repositories
 {
     public interface IProductRepository
     {

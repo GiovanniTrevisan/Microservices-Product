@@ -12,6 +12,8 @@ namespace Products.API.ViewModels
 
         public bool OutOfStock { get; set; }
 
-        public Category Category { get; set; }
+        public int IdCategory { get; set; }
+
+        public Category? Category { get; set; }
     }
 }

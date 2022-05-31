@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Categories.API.Services.Interfaces;
 using Categories.API.Services;
-using Categories.Infrastructure.Context;
-using Categories.Infrastructure.Repository;
-using Categories.Infrastructure.Repository.Interface;
+using Infrastructure.Abstractions.Repositories;
+using Infrastructure.Repository;
+using Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,7 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddDbContext<CategoryContext>(options =>
+builder.Services.AddDbContext<ProductContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),

@@ -77,7 +77,7 @@ namespace WebFront.Controllers
                 categoriesList = readTask.Result.ToList();
             }
 
-            ViewBag.CategoriesList = new SelectList(categoriesList, "Id", "Name");
+            ViewBag.CategoriesList = categoriesList;
 
             return View();
         }
@@ -85,20 +85,20 @@ namespace WebFront.Controllers
         // POST: Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,OutOfStock")] ProductViewModel productViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,OutOfStock,IdCategory")] ProductViewModel productViewModel)
         {
             using (var productClient = new HttpClient())
             {
                 productClient.BaseAddress = baseAddress;
-                var responseTask = productClient.PostAsync(callRequest, productViewModel, new JsonMediaTypeFormatter());
-                responseTask.Wait();
+                var result = await productClient.PostAsync(callRequest, productViewModel, new JsonMediaTypeFormatter());
 
-                var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadFromJsonAsync<ProductViewModel>();
-                    readTask.Wait();
                     return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    var ret = await result.Content.ReadAsStringAsync();
                 }
             }
             return Problem("Some problem occurred. Cannot Save this new Product!");
@@ -107,21 +107,30 @@ namespace WebFront.Controllers
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
                 return NotFound();
+
+            List<CategoryViewModel> categoriesList = null;
+
+            using (var categoryClient = new HttpClient())
+            {
+                categoryClient.BaseAddress = new Uri("https://localhost:7264/");
+                var result = await categoryClient.GetAsync("api/Categories/category");
+                var readTask = await result.Content.ReadFromJsonAsync<IEnumerable<CategoryViewModel>>();
+                categoriesList = readTask.ToList();
+            }
+
+            ViewBag.CategoriesList = categoriesList;
 
             ProductViewModel? product = null;
 
             using (var productClient = new HttpClient())
             {
                 productClient.BaseAddress = baseAddress;
-                var responseTask = productClient.GetAsync(callRequest + "/" + id);
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                var readTask = result.Content.ReadFromJsonAsync<ProductViewModel>();
-                readTask.Wait();
-                product = readTask.Result;
+                var result = await productClient.GetAsync(callRequest + "/" + id);
+                product = await result.Content.ReadFromJsonAsync<ProductViewModel>();
+                product.IdCategory = product.Category.Id;
             }
 
             return product == null ? NotFound() : View(product);

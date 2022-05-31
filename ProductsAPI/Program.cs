@@ -1,11 +1,13 @@
 using AutoMapper;
+using Categories.API.Services;
+using Categories.API.Services.Interfaces;
+using Infrastructure.Abstractions.Repositories;
+using Infrastructure.Context;
+using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Products.API.Services;
 using Products.API.Services.Interfaces;
-using Products.Infrastructure.Context;
-using Products.Infrastructure.Repository;
-using Products.Infrastructure.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,11 +33,13 @@ builder.Services.AddDbContext<ProductContext>(options =>
         o => o.SchemaBehavior(MySqlSchemaBehavior.Translate, (schema, table) => $"{ schema}_{ table}"));
 });
 
-
 builder.Services.AddMvc();
 
 builder.Services.AddScoped<IProductApiService, ProductApiService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryApiService, CategoryApiService>();
 
 var app = builder.Build();
 

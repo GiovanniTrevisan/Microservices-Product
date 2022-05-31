@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Entities;
+using Infrastructure.Abstractions.Repositories;
 using Products.API.Services.Interfaces;
 using Products.API.ViewModels;
-using Products.Infrastructure.Repository.Interfaces;
 
 namespace Products.API.Services
 

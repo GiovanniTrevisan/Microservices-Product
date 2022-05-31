@@ -20,8 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CategoriesAPI\Categories.API.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
-    <ProjectReference Include="..\Products.Infrastructure\Products.Infrastructure.csproj" />
+    <ProjectReference Include="..\Infrastructure.Abstractions\Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\Products.Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
